@@ -1,6 +1,5 @@
 ﻿#include "Credit.h"
 #include <fstream>
-#include <deque>
 #include <algorithm>
 
 int main(int argc, char* argv[])
