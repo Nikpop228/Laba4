@@ -24,7 +24,7 @@ Credit::Credit(Credit& credit) // конструктор копирования
 	deposit = credit.deposit;
 }
 
-Credit::Credit(Credit&& credit) // конструктор перемещения
+Credit::Credit(Credit&& credit) noexcept// конструктор перемещения
 {
 	name = credit.name;
 	sum = credit.sum;
@@ -41,7 +41,7 @@ Credit& Credit::operator = (Credit& credit) // переопределение оператора присваи
 	return *this;
 }
 
-Credit& Credit::operator = (Credit&& credit) // переопределение опреатора присваивания с перемещеним
+Credit& Credit::operator = (Credit&& credit) noexcept// переопределение опреатора присваивания с перемещеним
 {
 	name = credit.name;
 	sum = credit.sum;
@@ -51,9 +51,14 @@ Credit& Credit::operator = (Credit&& credit) // переопределение опреатора присва
 	return *this;
 }
 
-bool Credit::operator < (Credit& credit) // переопределения оператора сравнения для работы алгоритма sort
+bool Credit::operator < (const Credit& credit) // переопределения оператора сравнения для работы алгоритма sort
 {
 	return deposit < credit.deposit;
+}
+
+bool Credit::operator == (const Credit& credit) // переопределение оператора сравнения == для работы контейнера set
+{
+	return deposit == credit.deposit;
 }
 
 std::istream& operator >> (std::istream& stream, Credit& credit) // переопределение вставки в поток
@@ -81,13 +86,13 @@ std::istream& operator >> (std::istream& stream, Credit& credit) // переопределе
 	return stream;
 }
 
-std::ostream& operator << (std::ostream& stream, Credit& credit) // переопределение вставки в поток
+std::ostream& operator << (std::ostream& stream, const Credit& credit) // переопределение вставки в поток
 {
 	stream << credit.get_name() << '\t' << credit.get_sum() << '\t' << credit.get_currency() << '\t' << credit.get_deposit();
 	return stream;
 }
 
-std::istream& operator >> (std::istream& stream, std::vector <Credit>& vec) // переопределения вставки в поток для вектора типа Credit
+std::istream& operator >> (std::istream& stream, const std::vector <Credit>& vec) // переопределения вставки в поток для вектора типа Credit
 {
 	for (auto& elem : vec)
 	{
@@ -96,7 +101,7 @@ std::istream& operator >> (std::istream& stream, std::vector <Credit>& vec) // п
 	return stream;
 }
 
-std::ostream& operator << (std::ostream& stream, std::vector<Credit>& vec) // переопределение вставки в поток для вектора типа Credit
+std::ostream& operator << (std::ostream& stream, const std::vector<Credit>& vec) // переопределение вставки в поток для вектора типа Credit
 {
 	for (auto& elem : vec)
 	{
@@ -105,7 +110,7 @@ std::ostream& operator << (std::ostream& stream, std::vector<Credit>& vec) // пе
 	return stream;
 }
 
-std::ostream& operator << (std::ostream& stream, std::deque<Credit>& deq) // переопределение вставки в поток для вектора типа Credit
+std::ostream& operator << (std::ostream& stream, const std::deque<Credit>& deq) // переопределение вставки в поток для вектора типа Credit
 {
 	for (auto& elem : deq)
 	{

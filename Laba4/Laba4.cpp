@@ -1,7 +1,8 @@
 ﻿#include "Credit.h"
 #include <fstream>
-#include <deque>
 #include <algorithm>
+#include <unordered_set>
+#include <set>
 
 int main(int argc, char* argv[])
 {
@@ -11,19 +12,34 @@ int main(int argc, char* argv[])
 	std::ifstream fin(filename_input); // входной поток
 	std::ofstream fout(filename_output); // выходной поток
 
-	std::vector <Credit> vec(3);
-	std::deque <Credit> deq(3);
+	std::set <Credit> set;
+	Credit credit;
+	for (int i = 0; i < 3; i++)
+	{
+		fin >> credit;
+		set.insert(credit);
+	}
 
-	fin >> vec; // заполнение вектора
-	fout << vec << std::endl; // вывод в файл исходного вектора
+	for (auto& elem : set)
+	{
+		std::cout << elem << std::endl;
+	}
+	//std::vector <Credit> vec(3);
+	//std::deque <Credit> deq(3);
 
-	std::sort(vec.begin(), vec.end()); // сортировка вектора
+	//fin >> vec; // заполнение вектора
+	//fout << vec << std::endl; // вывод в файл исходного вектора
 
-	fout << vec << std::endl; // вывод в файл отсортированного вектора
+	//std::sort(vec.begin(), vec.end()); // сортировка вектора
 
-	std::copy(vec.begin(), vec.end(), deq.begin()); // копирование вектора в очередь
+	//fout << vec << std::endl; // вывод в файл отсортированного вектора
 
-	fout << vec << std::endl; // проверка ничего ли не случилось с вектором после копирования
+	//std::copy(vec.begin(), vec.end(), deq.begin()); // копирование вектора в очередь
 
-	fout << deq << std::endl; // вывод очереди в файл
+	//fout << vec << std::endl; // проверка ничего ли не случилось с вектором после копирования
+
+	//fout << deq << std::endl; // вывод очереди в файл
+
+	fin.close();
+	fout.close();
 }

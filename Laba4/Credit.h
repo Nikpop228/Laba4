@@ -18,20 +18,22 @@ public:
 
 	Credit(Credit& credit); // конструктор копирования
 
-	Credit(Credit&& credit); // конструктор перемещения
+	Credit(Credit&& credit) noexcept; // конструктор перемещения
 
 	Credit& operator = (Credit& credit); // переопределение оператора присваивания с копированием
 
-	Credit& operator = (Credit&& credit); // переопределение опреатора присваивания с перемещеним
+	Credit& operator = (Credit&& credit) noexcept; // переопределение опреатора присваивания с перемещеним
 
-	bool operator < (Credit& credit); // переопределения оператора сравнения для работы алгоритма sort
+	bool operator < (const Credit& credit); // переопределения оператора сравнения для работы алгоритма sort
+
+	bool operator == (const Credit& credit); // переопределение оператора сравнения == для работы контейнера set
 
 	//методы получения полей класса:
 
-	std::string get_name() { return name; }
-	int get_sum() { return sum; }
-	std::string get_currency() { return currency; }
-	double get_deposit() { return deposit; }
+	std::string get_name() const { return name; }
+	int get_sum() const { return sum; }
+	std::string get_currency() const{ return currency; }
+	double get_deposit() const { return deposit; }
 
 	//методы установки значений полей класса:
 
@@ -41,12 +43,12 @@ public:
 	void set_deposit(double& deposit) { this->deposit = deposit; }
 };
 
-std::istream& operator >> (std::istream& stream, Credit& credit); // переопределение получения из потока для класса
+std::istream& operator >> (std::istream& stream, const Credit& credit); // переопределение получения из потока для класса
 
-std::ostream& operator << (std::ostream& stream, Credit& credit); // переопределение вставки в поток для класса
+std::ostream& operator << (std::ostream& stream, const Credit& credit); // переопределение вставки в поток для класса
 
-std::istream& operator >> (std::istream& stream, std::vector <Credit>& vec); // переопределения получения из потока для вектора типа Credit
+std::istream& operator >> (std::istream& stream, const std::vector <Credit>& vec); // переопределения получения из потока для вектора типа Credit
 
-std::ostream& operator << (std::ostream& stream, std::vector<Credit>& vec); // переопределение вставки в поток для вектора типа Credit
+std::ostream& operator << (std::ostream& stream, const std::vector<Credit>& vec); // переопределение вставки в поток для вектора типа Credit
 
-std::ostream& operator << (std::ostream& stream, std::deque<Credit>& deq); // переопределение вставки в поток для очереди типа Credit
+std::ostream& operator << (std::ostream& stream, const std::deque<Credit>& deq); // переопределение вставки в поток для очереди типа Credit
