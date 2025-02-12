@@ -12,6 +12,8 @@ int main(int argc, char* argv[])
 	std::ifstream fin(filename_input); // входной поток
 	std::ofstream fout(filename_output); // выходной поток
 
+	// заполнение и вывод контейнера set
+
 	std::set <Credit> set;
 	Credit credit;
 	for (int i = 0; i < 3; i++)
@@ -22,8 +24,30 @@ int main(int argc, char* argv[])
 
 	for (auto& elem : set)
 	{
-		std::cout << elem << std::endl;
+		fout << elem << std::endl;
 	}
+
+	fout << std::endl;
+
+	// установка курсора в файле на начало
+
+	fin.clear();
+	fin.seekg(0);
+
+	// заполнение и вывод контейнера unoredered_set
+
+	std::unordered_set <Credit, CreditHasher> un_set;
+	for (int i = 0; i < 3; i++)
+	{
+		fin >> credit;
+		un_set.insert(credit);
+	}
+
+	for (auto& elem : un_set)
+	{
+		fout << elem << std::endl;
+	}
+
 	//std::vector <Credit> vec(3);
 	//std::deque <Credit> deq(3);
 

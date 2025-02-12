@@ -16,7 +16,7 @@ Credit::Credit(std::string name, int sum, std::string currency, double deposit) 
 	this->deposit = deposit;
 }
 
-Credit::Credit(Credit& credit) // конструктор копирования
+Credit::Credit(const Credit& credit) // конструктор копирования
 {
 	name = credit.name;
 	sum = credit.sum;
@@ -51,12 +51,21 @@ Credit& Credit::operator = (Credit&& credit) noexcept// переопределение опреатор
 	return *this;
 }
 
-bool Credit::operator < (const Credit& credit) // переопределения оператора сравнения для работы алгоритма sort
+bool Credit::operator < (const Credit& credit) const// переопределения оператора сравнения для работы алгоритма sort
 {
 	return deposit < credit.deposit;
 }
 
-bool Credit::operator == (const Credit& credit) // переопределение оператора сравнения == для работы контейнера set
+//bool operator < (const Credit& credit_1, const Credit& credit_2) // переопределение оператора сравнения чтобы он мог принимать два константных объекта
+//{
+//	int deposit_1 = credit_1.get_deposit();
+//	int deposit_2 = credit_2.get_deposit();
+//
+//	return deposit_1 < deposit_2;
+//}
+
+
+bool Credit::operator == (const Credit& credit) const// переопределение оператора сравнения == для работы контейнера set
 {
 	return deposit == credit.deposit;
 }
@@ -92,7 +101,7 @@ std::ostream& operator << (std::ostream& stream, const Credit& credit) // переоп
 	return stream;
 }
 
-std::istream& operator >> (std::istream& stream, const std::vector <Credit>& vec) // переопределения вставки в поток для вектора типа Credit
+std::istream& operator >> (std::istream& stream, std::vector <Credit>& vec) // переопределения вставки в поток для вектора типа Credit
 {
 	for (auto& elem : vec)
 	{
@@ -117,4 +126,13 @@ std::ostream& operator << (std::ostream& stream, const std::deque<Credit>& deq) 
 		stream << elem << std::endl;
 	}
 	return stream;
+}
+
+size_t CreditHasher::operator () (const Credit& credit) const
+{
+	const size_t coef = 103141;
+	return (coef * coef * coef * name_hash(credit.get_name()) 
+			+ coef * coef * sum_hash(credit.get_sum()) 
+			+ coef * currencu_hash(credit.get_currency()) 
+			+ deposit_hash(credit.get_deposit()));
 }
