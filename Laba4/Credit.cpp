@@ -24,7 +24,7 @@ Credit::Credit(Credit& credit) // конструктор копирования
 	deposit = credit.deposit;
 }
 
-Credit::Credit(Credit&& credit) // конструктор перемещения
+Credit::Credit(Credit&& credit) noexcept// конструктор перемещения
 {
 	name = credit.name;
 	sum = credit.sum;
@@ -41,7 +41,7 @@ Credit& Credit::operator = (Credit& credit) // переопределение оператора присваи
 	return *this;
 }
 
-Credit& Credit::operator = (Credit&& credit) // переопределение опреатора присваивания с перемещеним
+Credit& Credit::operator = (Credit&& credit) noexcept// переопределение опреатора присваивания с перемещеним
 {
 	name = credit.name;
 	sum = credit.sum;

@@ -18,11 +18,11 @@ public:
 
 	Credit(Credit& credit); // конструктор копирования
 
-	Credit(Credit&& credit); // конструктор перемещения
+	Credit(Credit&& credit) noexcept; // конструктор перемещения
 
 	Credit& operator = (Credit& credit); // переопределение оператора присваивания с копированием
 
-	Credit& operator = (Credit&& credit); // переопределение опреатора присваивания с перемещеним
+	Credit& operator = (Credit&& credit) noexcept; // переопределение опреатора присваивания с перемещеним
 
 	bool operator < (Credit& credit); // переопределения оператора сравнения для работы алгоритма sort
 
