@@ -25,4 +25,7 @@ int main(int argc, char* argv[])
 	fout << vec << std::endl; // проверка ничего ли не случилось с вектором после копирования
 
 	fout << deq << std::endl; // вывод очереди в файл
+
+	fin.close();
+	fout.close();
 }
