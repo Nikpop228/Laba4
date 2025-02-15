@@ -67,7 +67,7 @@ bool Credit::operator < (const Credit& credit) const// переопределения оператора
 
 bool Credit::operator == (const Credit& credit) const// переопределение оператора сравнения == для работы контейнера set
 {
-	return deposit == credit.deposit;
+	return (name == credit.name&&sum == credit.sum&&currency==credit.currency&&deposit == credit.deposit);
 }
 
 std::istream& operator >> (std::istream& stream, Credit& credit) // переопределение вставки в поток

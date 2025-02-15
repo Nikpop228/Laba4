@@ -12,11 +12,17 @@ int main(int argc, char* argv[])
 	std::ifstream fin(filename_input); // входной поток
 	std::ofstream fout(filename_output); // выходной поток
 
+	// узнаем число элементов
+
+	int n;
+	fin >> n;
+	fin.ignore(2, '\n');
+
 	// заполнение и вывод контейнера set
 
 	std::set <Credit> set;
 	Credit credit;
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < n; i++)
 	{
 		fin >> credit;
 		set.insert(credit);
@@ -34,10 +40,15 @@ int main(int argc, char* argv[])
 	fin.clear();
 	fin.seekg(0);
 
+	// узнаем число элементов
+
+	fin >> n;
+	fin.ignore(2, '\n');
+
 	// заполнение и вывод контейнера unoredered_set
 
 	std::unordered_set <Credit, CreditHasher> un_set;
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < n; i++)
 	{
 		fin >> credit;
 		un_set.insert(credit);
