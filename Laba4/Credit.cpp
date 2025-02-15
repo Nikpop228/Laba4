@@ -51,53 +51,59 @@ Credit& Credit::operator = (Credit&& credit) noexcept// переопределение опреатор
 	return *this;
 }
 
-bool Credit::operator < (const Credit& credit) const// переопределения оператора сравнения для работы алгоритма sort
+bool Credit::operator < (const Credit& credit) const // переопределения оператора сравнения для работы алгоритма sort
 {
-	return deposit < credit.deposit;
+	if (name != credit.name || sum != credit.sum || currency != credit.currency || deposit != credit.deposit) 
+	{ 
+		if (deposit < credit.deposit) { return true; }
+		else if (deposit == credit.deposit)
+		{
+			//return (name < credit.name || sum < credit.sum || currency < credit.currency);
+			if (name < credit.name) { return true; }
+			else if (name == credit.name)
+			{
+				if (currency < credit.currency) { return true; }
+				else if (currency == credit.currency)
+				{
+					if (sum < credit.sum) { return true; }
+					else return false;
+				}
+				else return false;
+			}
+			else return false;
+		}
+		else return false;
+	}
+	else return false;
+	//return deposit < credit.deposit;
 }
 
-//bool operator < (const Credit& credit_1, const Credit& credit_2) // переопределение оператора сравнения чтобы он мог принимать два константных объекта
-//{
-//	int deposit_1 = credit_1.get_deposit();
-//	int deposit_2 = credit_2.get_deposit();
-//
-//	return deposit_1 < deposit_2;
-//}
-
+bool Credit::operator <= (const Credit& credit) const // переопределения оператора сравнения для работы алгоритма sort
+{
+	if (*this == credit) { return false; }
+	else return deposit <= credit.deposit;
+}
 
 bool Credit::operator == (const Credit& credit) const// переопределение оператора сравнения == для работы контейнера set
 {
-	return (name == credit.name&&sum == credit.sum&&currency==credit.currency&&deposit == credit.deposit);
+	return (name == credit.name && sum == credit.sum && currency==credit.currency && deposit == credit.deposit);
 }
 
 std::istream& operator >> (std::istream& stream, Credit& credit) // переопределение вставки в поток
 {
-	std::string name; // название кредита
-	int sum; // сумма кредита
-	std::string currency; // валюта
-	double deposit; // процентная ставка
-
-	// считывание из потока
-
-	getline(stream, name);
-	stream >> sum;
+	getline(stream, credit.name);
+	stream >> credit.sum;
 	stream.ignore(2, '\n');
-	getline(stream, currency);
-	stream >> deposit;
+	getline(stream, credit.currency);
+	stream >> credit.deposit;
 	stream.ignore(2, '\n');
 
-	// присвоение значений объекту
-
-	credit.set_name(name);
-	credit.set_sum(sum);
-	credit.set_currency(currency);
-	credit.set_deposit(deposit);
 	return stream;
 }
 
-std::ostream& operator << (std::ostream& stream, const Credit& credit) // переопределение вставки в поток
+std::ostream& operator << (std::ostream& stream, const Credit& credit) // переопределение вsставки в поток
 {
-	stream << credit.get_name() << '\t' << credit.get_sum() << '\t' << credit.get_currency() << '\t' << credit.get_deposit();
+	stream << credit.name << '\t' << credit.sum << '\t' << credit.currency << '\t' << credit.deposit;
 	return stream;
 }
 
@@ -128,11 +134,11 @@ std::ostream& operator << (std::ostream& stream, const std::deque<Credit>& deq) 
 	return stream;
 }
 
-size_t CreditHasher::operator () (const Credit& credit) const
+size_t CreditHasher::operator () (const Credit& credit) const // хеш функция для unset
 {
 	const size_t coef = 103141;
-	return (coef * coef * coef * name_hash(credit.get_name()) 
-			+ coef * coef * sum_hash(credit.get_sum()) 
-			+ coef * currencu_hash(credit.get_currency()) 
-			+ deposit_hash(credit.get_deposit()));
+	return (coef * coef * coef * name_hash(credit.name) 
+			+ coef * coef * sum_hash(credit.sum) 
+			+ coef * currencu_hash(credit.currency) 
+			+ deposit_hash(credit.deposit));
 }
