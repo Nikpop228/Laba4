@@ -54,22 +54,6 @@ int main(int argc, char* argv[])
 		fout << elem << std::endl;
 	}
 
-	//std::vector <Credit> vec(3);
-	//std::deque <Credit> deq(3);
-
-	//fin >> vec; // заполнение вектора
-	//fout << vec << std::endl; // вывод в файл исходного вектора
-
-	//std::sort(vec.begin(), vec.end()); // сортировка вектора
-
-	//fout << vec << std::endl; // вывод в файл отсортированного вектора
-
-	//std::copy(vec.begin(), vec.end(), deq.begin()); // копирование вектора в очередь
-
-	//fout << vec << std::endl; // проверка ничего ли не случилось с вектором после копирования
-
-	//fout << deq << std::endl; // вывод очереди в файл
-
 	fin.close();
 	fout.close();
 }
