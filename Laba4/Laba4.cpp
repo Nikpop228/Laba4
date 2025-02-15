@@ -10,8 +10,12 @@ int main(int argc, char* argv[])
 	std::ifstream fin(filename_input); // входной поток
 	std::ofstream fout(filename_output); // выходной поток
 
-	std::vector <Credit> vec(3);
-	std::deque <Credit> deq(3);
+	int n;
+	fin >> n;
+	fin.ignore(2, '\n');
+
+	std::vector <Credit> vec(n);
+	std::deque <Credit> deq(n);
 
 	fin >> vec; // заполнение вектора
 	fout << vec << std::endl; // вывод в файл исходного вектора
