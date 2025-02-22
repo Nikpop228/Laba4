@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 
 	fout << vec << std::endl; // вывод в файл отсортированного вектора
 
-	std::copy(vec.begin(), vec.end(), deq.begin()); // копирование вектора в очередь
+	std::copy_if(vec.begin(), vec.end(), deq.begin(), [](Credit a, Credit b) { return a < b; }); // копирование вектора в очередь
 
 	fout << vec << std::endl; // проверка ничего ли не случилось с вектором после копирования
 
