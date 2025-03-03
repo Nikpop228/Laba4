@@ -54,6 +54,23 @@ int main(int argc, char* argv[])
 		fout << elem << std::endl;
 	}
 
+	fin.clear();
+	fin.seekg(3);
+
+	// работа copy_if
+
+	/*std::vector <Credit> vec(n);
+	std::deque <Credit> deq(n);
+
+	fin >> vec;
+
+	copy_if(vec.begin(), vec.end(), deq.begin(), [](Credit& cred) { return cred.get_dep() > 2; });
+
+	fout << vec << std::endl;
+	fout << std::endl << deq << std::endl;*/
+
+
+	//copy(vec.begin(), vec.end(), std::ostream_iterator<Credit>(fout, "\n"));
 	fin.close();
 	fout.close();
 }

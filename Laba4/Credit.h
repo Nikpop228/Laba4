@@ -21,6 +21,8 @@ public:
 
 	Credit(Credit&& credit) noexcept; // конструктор перемещения
 
+	double get_dep() { return deposit; }
+
 	Credit& operator = (Credit& credit); // переопределение оператора присваивания с копированием
 
 	Credit& operator = (Credit&& credit) noexcept; // переопределение опреатора присваивания с перемещеним
@@ -28,8 +30,6 @@ public:
 	bool operator == (const Credit& credit) const; // переопределение оператора сравнения == для работы контейнера un_set
 
 	bool operator < (const Credit& credit) const; // переопределения оператора сравнения для работы алгоритма sort
-
-	bool operator <= (const Credit& credit) const; // переопределения оператора сравнения для работы алгоритма sort
 
 	friend std::istream& operator >> (std::istream& stream, Credit& credit); // переопределение получения из потока для класса
 

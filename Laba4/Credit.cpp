@@ -76,12 +76,6 @@ bool Credit::operator < (const Credit& credit) const // переопределения оператор
 	else return false;
 }
 
-bool Credit::operator <= (const Credit& credit) const // переопределения оператора сравнения для работы алгоритма sort
-{
-	if (*this == credit) { return false; }
-	else return deposit <= credit.deposit;
-}
-
 bool Credit::operator == (const Credit& credit) const// переопределение оператора сравнения == для работы контейнера set
 {
 	return (name == credit.name && sum == credit.sum && currency==credit.currency && deposit == credit.deposit);
