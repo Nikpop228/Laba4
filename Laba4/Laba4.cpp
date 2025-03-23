@@ -18,17 +18,17 @@ int main(int argc, char* argv[])
 	std::deque <Credit> deq(n);
 
 	fin >> vec; // заполнение вектора
-	fout << vec << std::endl; // вывод в файл исходного вектора
+	fout << "Vector" << std::endl << vec << std::endl; // вывод в файл исходного вектора
 
 	std::sort(vec.begin(), vec.end()); // сортировка вектора
 
-	fout << vec << std::endl; // вывод в файл отсортированного вектора
+	fout << "Sort vector" << std::endl << vec << std::endl; // вывод в файл отсортированного вектора
 
-	std::copy_if(vec.begin(), vec.end(), deq.begin(), [](Credit a, Credit b) { return a < b; }); // копирование вектора в очередь
+	std::copy(vec.begin(), vec.end(), deq.begin()); // копирование вектора в очередь
 
-	fout << vec << std::endl; // проверка ничего ли не случилось с вектором после копирования
+	fout << "Vector after copy to deque" << std::endl << vec << std::endl; // проверка ничего ли не случилось с вектором после копирования
 
-	fout << deq << std::endl; // вывод очереди в файл
+	fout << "Deque" << std::endl << deq << std::endl; // вывод очереди в файл
 
 	fin.close();
 	fout.close();
